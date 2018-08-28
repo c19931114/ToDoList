@@ -13,14 +13,11 @@ class NavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.navigationItem.title = "To Do List"
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
 
 }
