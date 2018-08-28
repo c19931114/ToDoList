@@ -26,11 +26,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="COU-7J-6bQ">
-                        <rect key="frame" x="255" y="60" width="45" height="30"/>
+                        <rect key="frame" x="255" y="58.5" width="45" height="33"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="45" id="nVh-GU-C2c"/>
                         </constraints>
-                        <state key="normal" title="Edit"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <state key="normal" title="Edit">
+                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
                     </button>
                 </subviews>
                 <constraints>

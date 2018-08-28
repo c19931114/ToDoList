@@ -10,6 +10,13 @@ import UIKit
 
 class ToDoListTableVC: UIViewController {
 
+    @IBAction func addItem(_ sender: Any) {
+        
+        let nilContent = AddOrEditVC.editSelectedItem("")
+        navigationController?.pushViewController(nilContent, animated: true)
+        
+    }
+    
     @IBOutlet weak var toDoListTableView: UITableView!
     
     var toDoItems = ["吃飯", "睡覺", "打東東"]
@@ -71,8 +78,9 @@ extension ToDoListTableVC: UITableViewDataSource {
         
         let editContent = AddOrEditVC.editSelectedItem(itemContent)
         navigationController?.pushViewController(editContent, animated: true)
+        
 
-    
+        
     }
     
 }
