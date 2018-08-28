@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AddOrEditVC.swift
 //  ToDoList
 //
 //  Created by Crystal on 2018/8/28.
@@ -8,18 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class AddOrEditVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        setNavigationBartitle()
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+
+    func setNavigationBartitle() {
+        
+        self.navigationItem.title = "Add"
     }
 
-
 }
-
