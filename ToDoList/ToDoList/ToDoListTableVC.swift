@@ -12,6 +12,8 @@ class ToDoListTableVC: UIViewController {
 
     @IBOutlet weak var toDoListTableView: UITableView!
     
+    var toDoItems = ["吃飯", "睡覺", "打東東"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +39,7 @@ class ToDoListTableVC: UIViewController {
 extension ToDoListTableVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return toDoItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,10 +47,32 @@ extension ToDoListTableVC: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "toDoCell",
                                                     for: indexPath) as? ToDoListTableViewCell {
             
+            let cellIndexPath = toDoItems[indexPath.row]
+            
+            cell.toDoItemLabel.text = cellIndexPath
+            
+            //target action
+            cell.editButton.tag = indexPath.row
+            cell.editButton.addTarget(self, action: #selector(editToDoItem(sender:)), for: .touchUpInside)
+            
+            
             return cell
         }
         
         return UITableViewCell()
+    }
+    
+    @objc func editToDoItem(sender: UIButton) {
+        
+        let selectedItem = sender.tag
+        print(sender.tag)
+        
+        let itemContent = toDoItems[selectedItem]
+        
+        let editContent = AddOrEditVC.editSelectedItem(itemContent)
+        navigationController?.pushViewController(editContent, animated: true)
+
+    
     }
     
 }
@@ -62,4 +86,6 @@ extension ToDoListTableVC: UITableViewDelegate {
     }
     
 }
+
+
 

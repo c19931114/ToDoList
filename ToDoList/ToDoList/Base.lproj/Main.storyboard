@@ -55,7 +55,7 @@
         <!--Add Or EditVC-->
         <scene sceneID="ate-Rh-uSX">
             <objects>
-                <viewController id="oc6-WM-CG6" customClass="AddOrEditVC" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addOrEditVC" id="oc6-WM-CG6" customClass="AddOrEditVC" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gba-UZ-UPG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,6 +92,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D5C-xB-WcH"/>
                     </view>
+                    <connections>
+                        <outlet property="itemContent" destination="YTL-SC-vYZ" id="cTH-aD-rZa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kGz-qz-Apm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
