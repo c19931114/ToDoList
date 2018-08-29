@@ -18,14 +18,24 @@ class AddOrEditVC: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         
-        content = itemContent.text 
+        content = itemContent.text
+        
+        if navigationItem.title == "Add" {
+            
+            NotificationCenter.default.post(name: .add,
+                                            object: content,
+                                            userInfo: [NotificationInfo.message: "新增並回到上一頁"])
+        } else {
+            
+            NotificationCenter.default.post(name: .edit,
+                                            object: content,
+                                            userInfo: [NotificationInfo.message: "儲存並回到上一頁"])
+            
+        }
         
         navigationController?.popViewController(animated: true)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NotificationCenter.default.post(name: .save,
-                                        object: content,
-                                        userInfo: [NotificationInfo.message: "儲存並回到上一頁"])
         
     }
     
@@ -67,5 +77,8 @@ class AddOrEditVC: UIViewController {
 }
 
 extension Notification.Name {
-    static let save = Notification.Name("save")
+    
+    static let add = Notification.Name("add")
+    static let edit = Notification.Name("edit")
+    
 }

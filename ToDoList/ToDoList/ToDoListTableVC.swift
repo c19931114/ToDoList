@@ -15,7 +15,7 @@ struct NotificationInfo {
 class ToDoListTableVC: UIViewController {
     
     var toDoItems = ["吃飯", "睡覺", "打東東"]
-    var content: String?
+    var selectedItem = UIButton().tag
 
     @IBAction func addItem(_ sender: Any) {
         
@@ -32,28 +32,54 @@ class ToDoListTableVC: UIViewController {
         self.navigationItem.title = "To Do List"
         setCell()
         
-        let notificationName = Notification.Name("save")
+        let addNotificationName = Notification.Name("add")
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(gotNotification),
-            name: notificationName, object: nil)
+            selector: #selector(gotAddNotification),
+            name: addNotificationName, object: nil)
+        
+        let editNotificationName = Notification.Name("edit")
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(gotEditNotification),
+            name: editNotificationName, object: nil)
+        
+        
         
     }
     
-    @objc func gotNotification(noti: Notification) {
+    @objc func gotAddNotification(noti: Notification) {
         
+        guard let userInfo = noti.userInfo,
+            let message = userInfo[NotificationInfo.message] else { return }
         
-         if let userInfo = noti.userInfo, let message = userInfo[NotificationInfo.message] {
-            
-            print(message)
-            
-            guard let todoItemmm = noti.object as? String else { return }
-            content = todoItemmm
-            
+        print(message)
+        
+        guard let todoItem = noti.object as? String else {
+            return
         }
         
+        toDoItems.append(todoItem)
+        toDoListTableView.reloadData()
     }
 
+    
+    @objc func gotEditNotification(noti: Notification) {
+        
+        guard let userInfo = noti.userInfo,
+            let message = userInfo[NotificationInfo.message] else { return }
+        
+        print(message)
+        
+        guard let todoItem = noti.object as? String else {
+            return
+        }
+    
+        toDoItems[selectedItem] = todoItem
+        toDoListTableView.reloadData()
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
@@ -98,13 +124,13 @@ extension ToDoListTableVC: UITableViewDataSource {
     
     @objc func editToDoItem(sender: UIButton) {
         
-        let selectedItem = sender.tag
+        selectedItem = sender.tag
         print(sender.tag)
         
-        let itemContent = toDoItems[selectedItem]
+        let toDoItem = toDoItems[selectedItem]
         
-        let editContent = AddOrEditVC.editSelectedItem(itemContent)
-        navigationController?.pushViewController(editContent, animated: true)
+        let editItem = AddOrEditVC.editSelectedItem(toDoItem)
+        navigationController?.pushViewController(editItem, animated: true)
 
         
     }
