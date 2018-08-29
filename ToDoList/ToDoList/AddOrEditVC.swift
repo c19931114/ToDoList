@@ -10,11 +10,24 @@ import UIKit
 
 class AddOrEditVC: UIViewController {
     
-    @IBOutlet weak var itemContent: UITextView!
-    
+    var content: String?
     static let storyboardName = "Main"
     static let viewControllerIdentifier = "addOrEditVC"
-    var content: String?
+    
+    @IBOutlet weak var itemContent: UITextView!
+    
+    @IBAction func save(_ sender: Any) {
+        
+        content = itemContent.text 
+        
+        navigationController?.popViewController(animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        NotificationCenter.default.post(name: .save,
+                                        object: content,
+                                        userInfo: [NotificationInfo.message: "儲存並回到上一頁"])
+        
+    }
     
     class func editSelectedItem(_ content: String) -> AddOrEditVC {
         
@@ -51,4 +64,8 @@ class AddOrEditVC: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension Notification.Name {
+    static let save = Notification.Name("save")
 }

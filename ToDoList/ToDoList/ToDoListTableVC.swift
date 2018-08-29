@@ -8,7 +8,14 @@
 
 import UIKit
 
+struct NotificationInfo {
+    static let message = ""
+}
+
 class ToDoListTableVC: UIViewController {
+    
+    var toDoItems = ["吃飯", "睡覺", "打東東"]
+    var content: String?
 
     @IBAction func addItem(_ sender: Any) {
         
@@ -19,13 +26,31 @@ class ToDoListTableVC: UIViewController {
     
     @IBOutlet weak var toDoListTableView: UITableView!
     
-    var toDoItems = ["吃飯", "睡覺", "打東東"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "To Do List"
         setCell()
+        
+        let notificationName = Notification.Name("save")
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(gotNotification),
+            name: notificationName, object: nil)
+        
+    }
+    
+    @objc func gotNotification(noti: Notification) {
+        
+        
+         if let userInfo = noti.userInfo, let message = userInfo[NotificationInfo.message] {
+            
+            print(message)
+            
+            guard let todoItemmm = noti.object as? String else { return }
+            content = todoItemmm
+            
+        }
         
     }
 
@@ -40,6 +65,8 @@ class ToDoListTableVC: UIViewController {
         toDoListTableView.register(toDoNib, forCellReuseIdentifier: "toDoCell")
         
     }
+    
+   
 
 }
 
@@ -78,7 +105,6 @@ extension ToDoListTableVC: UITableViewDataSource {
         
         let editContent = AddOrEditVC.editSelectedItem(itemContent)
         navigationController?.pushViewController(editContent, animated: true)
-        
 
         
     }
