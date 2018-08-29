@@ -10,7 +10,7 @@ import UIKit
 
 protocol DataSentDelegate {
     
-    func addItem(data: String)
+    func updateItem(data: String)
     
 }
 
@@ -26,13 +26,13 @@ class AddOrEditVC: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         
-        if delegate != nil {
+//        if delegate != nil {
             if itemContent.text != nil {
                 let content = itemContent.text
-                delegate?.addItem(data: content!)
+                delegate?.updateItem(data: content!)
                 navigationController?.popViewController(animated: true)
             }
-        }
+//        }
     }
     
     
@@ -41,6 +41,7 @@ class AddOrEditVC: UIViewController {
         let mainStoryboard = UIStoryboard(name: AddOrEditVC.storyboardName, bundle: nil)
         
         guard let addOrEditVC = mainStoryboard.instantiateViewController(withIdentifier: AddOrEditVC.viewControllerIdentifier) as? AddOrEditVC else {
+            
             return AddOrEditVC()
         } // 告訴 addOrEditVC 要讀 storboard 的哪個畫面
             //直接 new 會是黑畫面(因為我們是用 storyboard 製作畫面)

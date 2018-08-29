@@ -9,12 +9,13 @@
 import UIKit
 
 class ToDoListTableVC: UIViewController {
+    
+    var selectedItem: Int?
 
     @IBAction func addItem(_ sender: Any) {
         
-        let nilContent = AddOrEditVC.editSelectedItem("")
-        navigationController?.pushViewController(nilContent, animated: true)
-        
+        self.performSegue(withIdentifier: "showContentVC", sender: nil)
+
     }
     
     @IBOutlet weak var toDoListTableView: UITableView!
@@ -38,9 +39,7 @@ class ToDoListTableVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "showContentVC" {
-            
-            let addOrEditVC: AddOrEditVC = segue.destination as! AddOrEditVC
+        if let addOrEditVC: AddOrEditVC = segue.destination as? AddOrEditVC {
             addOrEditVC.delegate = self
         }
     }
@@ -75,16 +74,14 @@ extension ToDoListTableVC: UITableViewDataSource {
     
     @objc func editToDoItem(sender: UIButton) {
         
-        let selectedItem = sender.tag
+        selectedItem = sender.tag
         print(sender.tag)
         
-        let itemContent = toDoItems[selectedItem]
-        
-        let editContent = AddOrEditVC.editSelectedItem(itemContent)
-        navigationController?.pushViewController(editContent, animated: true)
-        
-
-        
+        let itemContent = toDoItems[selectedItem!]
+        let editContentVC = AddOrEditVC.editSelectedItem(itemContent)
+        editContentVC.delegate = self
+        navigationController?.pushViewController(editContentVC, animated: true)
+    
     }
     
 }
@@ -101,13 +98,24 @@ extension ToDoListTableVC: UITableViewDelegate {
 
 extension ToDoListTableVC: DataSentDelegate {
     
-    func addItem(data: String) {
+    func updateItem(data: String) {
         
-        toDoItems.append(data)
-        toDoListTableView.reloadData()
+        if selectedItem != nil {
+            
+            guard let selectedItem = selectedItem else { return }
+            toDoItems[selectedItem] = data
+            
+            self.selectedItem = nil
+            toDoListTableView.reloadData()
+
+
+        } else {
+            
+            toDoItems.append(data)
+            toDoListTableView.reloadData()
+        }
         
     }
-    
     
 }
 

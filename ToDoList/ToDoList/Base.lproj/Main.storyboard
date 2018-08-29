@@ -42,12 +42,12 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addItem:" destination="BYZ-38-t0r" id="IgD-oz-gTB"/>
-                                <segue destination="oc6-WM-CG6" kind="show" identifier="showContentVC" id="8h8-2f-ljl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="toDoListTableView" destination="Ati-KL-y4A" id="7BV-R2-yX6"/>
+                        <segue destination="oc6-WM-CG6" kind="show" identifier="showContentVC" id="oSM-Y0-GBQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
