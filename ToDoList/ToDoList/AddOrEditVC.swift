@@ -14,7 +14,11 @@ class AddOrEditVC: UIViewController {
     
     static let storyboardName = "Main"
     static let viewControllerIdentifier = "addOrEditVC"
-    var content: String?
+    @objc dynamic var content: String? //要監聽的對象
+    
+    @IBAction func save(_ sender: Any) {
+       content = itemContent.text
+    }
     
     class func editSelectedItem(_ content: String) -> AddOrEditVC {
         

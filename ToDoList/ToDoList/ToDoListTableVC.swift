@@ -9,11 +9,27 @@
 import UIKit
 
 class ToDoListTableVC: UIViewController {
+    
+    var selectedItem: Int?
+    
+    var observation: NSKeyValueObservation?
 
     @IBAction func addItem(_ sender: Any) {
         
-        let nilContent = AddOrEditVC.editSelectedItem("")
-        navigationController?.pushViewController(nilContent, animated: true)
+        
+        let addContentVC = AddOrEditVC.editSelectedItem("")
+        
+        self.observation = addContentVC.observe(\.content, options: [.new], changeHandler: { (addContentVC, _) in
+            
+            guard let content = addContentVC.content else { return }
+            self.toDoItems.append(content)
+
+            self.navigationController?.popViewController(animated: true)
+            self.toDoListTableView.reloadData()
+            
+        })
+
+        navigationController?.pushViewController(addContentVC, animated: true)
         
     }
     
@@ -71,15 +87,24 @@ extension ToDoListTableVC: UITableViewDataSource {
     
     @objc func editToDoItem(sender: UIButton) {
         
-        let selectedItem = sender.tag
+        selectedItem = sender.tag
         print(sender.tag)
         
-        let itemContent = toDoItems[selectedItem]
+        let itemContent = toDoItems[selectedItem!]
+        let editContentVC = AddOrEditVC.editSelectedItem(itemContent)
         
-        let editContent = AddOrEditVC.editSelectedItem(itemContent)
-        navigationController?.pushViewController(editContent, animated: true)
-        
+        self.observation = editContentVC.observe(\.content, options: [.new], changeHandler: { (editContentVC, _) in
+            
+            guard let content = editContentVC.content else { return }
+          
+            guard let selectedItem = self.selectedItem else { return }
+            self.toDoItems[selectedItem] = content
+            
+            self.navigationController?.popViewController(animated: true)
+            self.toDoListTableView.reloadData()
 
+        })
+        navigationController?.pushViewController(editContentVC, animated: true)
         
     }
     
