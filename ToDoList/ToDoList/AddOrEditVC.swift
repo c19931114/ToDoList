@@ -22,7 +22,8 @@ class AddOrEditVC: UIViewController {
         
         guard let addOrEditVC = mainStoryboard.instantiateViewController(withIdentifier: AddOrEditVC.viewControllerIdentifier) as? AddOrEditVC else {
             return AddOrEditVC()
-        }
+        } // 告訴 addOrEditVC 要讀 storboard 的哪個畫面
+            //直接 new 會是黑畫面(因為我們是用 storyboard 製作畫面)
         
         if content == "" {
             
