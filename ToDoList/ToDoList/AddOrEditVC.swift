@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol DataSentDelegate {
+    
+    func addItem(data: String)
+    
+}
+
 class AddOrEditVC: UIViewController {
     
     @IBOutlet weak var itemContent: UITextView!
@@ -15,6 +21,20 @@ class AddOrEditVC: UIViewController {
     static let storyboardName = "Main"
     static let viewControllerIdentifier = "addOrEditVC"
     var content: String?
+    
+    var delegate: DataSentDelegate? = nil
+    
+    @IBAction func save(_ sender: Any) {
+        
+        if delegate != nil {
+            if itemContent.text != nil {
+                let content = itemContent.text
+                delegate?.addItem(data: content!)
+                navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     
     class func editSelectedItem(_ content: String) -> AddOrEditVC {
         

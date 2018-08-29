@@ -42,6 +42,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addItem:" destination="BYZ-38-t0r" id="IgD-oz-gTB"/>
+                                <segue destination="oc6-WM-CG6" kind="show" identifier="showContentVC" id="8h8-2f-ljl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -62,7 +63,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTL-SC-vYZ">
-                                <rect key="frame" x="20" y="40" width="335" height="180"/>
+                                <rect key="frame" x="20" y="84" width="335" height="180"/>
                                 <color key="backgroundColor" red="0.97671295150282422" green="0.89963636512876" blue="0.71722302348394229" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="C95-KS-bQe"/>
@@ -72,7 +73,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4K-jx-HdY">
-                                <rect key="frame" x="20" y="230" width="335" height="40"/>
+                                <rect key="frame" x="20" y="274" width="335" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="0pt-e5-sx9"/>
@@ -81,6 +82,9 @@
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="save:" destination="oc6-WM-CG6" eventType="touchUpInside" id="BPl-Hc-to0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

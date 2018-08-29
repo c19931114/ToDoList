@@ -28,17 +28,21 @@ class ToDoListTableVC: UIViewController {
         setCell()
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
     
     func setCell() {
         
         let toDoNib = UINib(nibName: "ToDoListTableViewCell", bundle: nil)
         toDoListTableView.register(toDoNib, forCellReuseIdentifier: "toDoCell")
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showContentVC" {
+            
+            let addOrEditVC: AddOrEditVC = segue.destination as! AddOrEditVC
+            addOrEditVC.delegate = self
+        }
     }
 
 }
@@ -92,6 +96,18 @@ extension ToDoListTableVC: UITableViewDelegate {
         return UITableViewAutomaticDimension
 
     }
+    
+}
+
+extension ToDoListTableVC: DataSentDelegate {
+    
+    func addItem(data: String) {
+        
+        toDoItems.append(data)
+        toDoListTableView.reloadData()
+        
+    }
+    
     
 }
 
