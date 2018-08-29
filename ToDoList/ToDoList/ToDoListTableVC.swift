@@ -12,8 +12,14 @@ class ToDoListTableVC: UIViewController {
 
     @IBAction func addItem(_ sender: Any) {
         
-        let nilContent = AddOrEditVC.editSelectedItem("")
-        navigationController?.pushViewController(nilContent, animated: true)
+        let addContentVC = AddOrEditVC.editSelectedItem("")
+        addContentVC.completionHandler = { data in
+            
+            self.toDoItems.append(data)
+            self.navigationController?.popViewController(animated: true)
+            self.toDoListTableView.reloadData()
+        }
+        navigationController?.pushViewController(addContentVC, animated: true)
         
     }
     
@@ -77,6 +83,12 @@ extension ToDoListTableVC: UITableViewDataSource {
         let itemContent = toDoItems[selectedItem]
         
         let editContent = AddOrEditVC.editSelectedItem(itemContent)
+        editContent.completionHandler = { data in
+            
+            self.toDoItems[selectedItem] = data
+            self.navigationController?.popViewController(animated: true)
+            self.toDoListTableView.reloadData()
+        }
         navigationController?.pushViewController(editContent, animated: true)
         
 

@@ -16,6 +16,13 @@ class AddOrEditVC: UIViewController {
     static let viewControllerIdentifier = "addOrEditVC"
     var content: String?
     
+    var completionHandler: ((_ data: String) -> Void)?
+    
+    @IBAction func save(_ sender: Any) {
+        
+        completionHandler?(itemContent.text ?? "")
+    }
+    
     class func editSelectedItem(_ content: String) -> AddOrEditVC {
         
         let mainStoryboard = UIStoryboard(name: AddOrEditVC.storyboardName, bundle: nil)
