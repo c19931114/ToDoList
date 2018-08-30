@@ -62,7 +62,7 @@ extension ToDoListTableVC: UITableViewDataSource {
             cell.toDoItemLabel.text = cellIndexPath
             
             //target action
-            cell.editButton.tag = indexPath.row
+            cell.editButton.tag = indexPath.row //不要忘記塞給 tag
             cell.editButton.addTarget(self, action: #selector(editToDoItem(sender:)), for: .touchUpInside)
             
             

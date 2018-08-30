@@ -12,6 +12,10 @@ protocol DataSentDelegate {
     
     func updateItem(data: String)
     
+    // delegate 的核心就是 protocol 最重要的概念就是去耦合
+    // 如果沒有 protocol, delegate 的型別就是接收端的 controller
+    // 此時就是呼叫對方的 method
+    
 }
 
 class AddOrEditVC: UIViewController {
@@ -22,7 +26,7 @@ class AddOrEditVC: UIViewController {
     static let viewControllerIdentifier = "addOrEditVC"
     var content: String?
     
-    var delegate: DataSentDelegate? = nil
+    var delegate: DataSentDelegate? = nil // 傳送端 指定型別
     
     @IBAction func save(_ sender: Any) {
         
