@@ -32,20 +32,19 @@ class ToDoListTableVC: UIViewController {
         self.navigationItem.title = "To Do List"
         setCell()
         
-        let addNotificationName = Notification.Name("add")
+        let addNotificationName = Notification.Name.add
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(gotAddNotification),
             name: addNotificationName, object: nil)
+        // object 填入特定接收對象 (不想接收所有 notification 時)
         
-        let editNotificationName = Notification.Name("edit")
+        let editNotificationName = Notification.Name.edit
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(gotEditNotification),
             name: editNotificationName, object: nil)
-        
-        
-        
+  
     }
     
     @objc func gotAddNotification(noti: Notification) {
