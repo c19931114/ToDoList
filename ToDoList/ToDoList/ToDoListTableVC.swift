@@ -13,12 +13,16 @@ class ToDoListTableVC: UIViewController {
     @IBAction func addItem(_ sender: Any) {
         
         let addContentVC = AddOrEditVC.editSelectedItem("")
+        
         addContentVC.completionHandler = { data in
+            
+            // 必須把 closure 存在全域變數裡 不然跑完就不見了
             
             self.toDoItems.append(data)
             self.navigationController?.popViewController(animated: true)
             self.toDoListTableView.reloadData()
         }
+        
         navigationController?.pushViewController(addContentVC, animated: true)
         
     }
